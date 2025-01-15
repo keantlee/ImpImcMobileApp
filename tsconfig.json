@@ -1,3 +1,14 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json"
+  "extends": "@react-native/typescript-config/tsconfig.json", /* Recommended React Native TSConfig base */
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig.json to read more about this file */
+
+    /* Completeness */
+    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "include": [
+    "src/**/*.ts",                                       /* Include all TypeScript files in the src folder */
+    "src/**/*.tsx",                                      /* Include all TSX files in the src folder */
+    "src/declarations.d.ts"                              /* Ensure the custom declaration file is included */
+  ]
 }

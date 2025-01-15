@@ -5,114 +5,120 @@
  * @format
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import type {PropsWithChildren} from 'react';
+
 import {
   SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
   View,
 } from 'react-native';
 
 import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  ApplicationProvider,
+  Button,
+  Icon,
+  IconElement,
+  IconRegistry,
+  Layout,
+  Text,
+} from '@ui-kitten/components';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+import * as eva from '@eva-design/eva';
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+// ASSETS
+import { ThemeContext } from './src/assets/theme';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+import LogIn from './src/screens/Login';
+import Otp from './src/screens/OTP';
+import HomeScreen from './src/screens/Home';
+
+// import {
+//   Colors,
+//   DebugInstructions,
+//   Header,
+//   LearnMoreLinks,
+//   ReloadInstructions,
+// } from 'react-native/Libraries/NewAppScreen';
+
+export default (): React.ReactElement => {
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(nextTheme);
   };
 
+  const sunIcon   = () => <Icon name="sun-outline" />;
+  const moonIcon  = () => <Icon name="moon-outline" />;
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+        {/* <User userId="UUID1234" email="kentley.ong@mail.da.gov.ph" password="secret" fullName={fullname} gender="MALE" contactNo={9169382460} location={location}/>  */}
+
+        <IconRegistry icons={EvaIconsPack}/>
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+          <ApplicationProvider {...eva} theme={eva[theme]}>
+
+          <View style={styles.buttonContainer}>
+              <Button
+                appearance="ghost"
+                status="info"
+                accessoryLeft={theme === 'light' ? sunIcon : moonIcon}
+                onPress={toggleTheme}
+                style={styles.themeToggleButton}
+              >
+                {/* {theme === 'light' ? 'Dark Mode' : 'Light Mode'} */}
+              </Button>
+          </View>
+
+          {/* <LogIn 
+              email="kentley.ong@mail.da.gov.ph" 
+              id={2024} 
+              password="secret" 
+          /> */}
+
+          {/* <Otp 
+              otp={123456}
+           /> */}
+
+          <HomeScreen 
+            user_id="1234"
+            email="kentley.ong@mail.da.gov.ph" 
+            regCode="13" 
+          />
+
+          </ApplicationProvider>
+        </ThemeContext.Provider>
+    </>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  text: {
+    textAlign: 'center',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  likeButton: {
+    marginVertical: 16,
   },
-  highlight: {
-    fontWeight: '700',
+  themeToggleButton: {
+    // marginBottom: 20,
+    alignSelf: 'flex-end',
+  },
+  buttonContainer: {
+    position: 'absolute',
+    top: 10, // Adjust if needed
+    right: 10, // Adjust if needed
+    zIndex: 1,
   },
 });
-
-export default App;
