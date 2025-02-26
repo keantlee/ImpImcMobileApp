@@ -4,11 +4,18 @@
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Completeness */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
+    "baseUrl": "./",   
+    "paths": {
+      "react-native-vector-icons/*": [
+        "node_modules/react-native-vector-icons/*"
+      ]
+    }
   },
   "include": [
     "src/**/*.ts",                                       /* Include all TypeScript files in the src folder */
     "src/**/*.tsx",                                      /* Include all TSX files in the src folder */
-    "src/declarations.d.ts"                              /* Ensure the custom declaration file is included */
-  ]
+    "src/declarations.d.ts",                              /* Ensure the custom declaration file is included */ 
+    "src/navigations/AppStackNavigations/index.tsx"
+  ],
 }

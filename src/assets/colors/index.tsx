@@ -1,0 +1,25 @@
+export default {
+    primary: '#007bff',
+    warning: '#ffc107',
+    danger: '#dc3545',
+    secondary: '#6c757d',
+    success: '#28a745',
+    info: '#17a2b8',
+    light: '#f8f9fa', 
+    dark: '#343a40',
+    white: '#fff',
+    daColor: '#009246',
+
+    // bags background colors
+    bag1Bg: '#ea7a72',
+    bag2Bg: '#c2c5d1',
+    bag3Bg: '#82a7c9',
+    bag4Bg: '#d49d8f',
+    bag5Bg: '#ccd9c6',
+    bag6Bg: '#767676',
+    bag7Bg: '#d1c8c3',
+    bag8Bg: '#dca47f',
+    bag9Bg: '#eb849c',
+    bag10Bg: '#979dc1',
+    bag11Bg: '#c7d3c0',
+}

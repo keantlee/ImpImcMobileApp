@@ -134,4 +134,6 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
         marginRight: 60,
     },
+
+    errorText: { color: 'red', marginTop: 5 },
 });

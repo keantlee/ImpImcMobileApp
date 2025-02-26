@@ -152,7 +152,7 @@ export const styles = StyleSheet.create({
     },
 
     lastestTransactionStyle:{
-      maxHeight: 100,
+      maxHeight: '100%',
       marginTop:30,
       // marginHorizontal:5, 
       // marginBottom:20,
