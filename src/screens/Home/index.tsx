@@ -13,6 +13,7 @@ import {
     ViewProps,
 } from "react-native";
 
+// IMPORT UI-KITTEN COMPONENTS
 import {
     ApplicationProvider,
     Button,
@@ -32,6 +33,7 @@ import { useNavigation } from '@react-navigation/native';
 
 // COMPONENTS
 import { homeCards } from '../../components/cards';
+import { AvaterHeader } from '../../components/header/avatar';
 
 // ASSETS
 import icons from '../../assets/icons';
@@ -39,13 +41,10 @@ import images from '../../assets/images';
 
 // STYLES
 import { styles } from './styles';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParams } from '../../navigations/AppStackNavigations';
 
-// DATA DECLARATION
-interface HomeProps {
-    user_id: string,
-    email: string,
-    regCode: string
-};
+type HomeProps = NativeStackScreenProps<RootStackParams, "HomeScreen">
 
 interface IListItem {
     refNo: string;
@@ -57,75 +56,83 @@ const data = new Array(8).fill({
     transactDate: 'Transaction Date',
 });
 
-const { RenderBalanceCard, RenderModules, RenderLatestTransaction } = homeCards;
+const HomeScreen: React.FC<HomeProps> = ({ route })  => {
+    const { RenderBalanceCard, RenderModules, RenderLatestTransaction } = homeCards;
 
-const arrowIcon = () => <Icon name="chevron-right-outline" style={[styles.iconStyle]}/>
+    const navigation = useNavigation();
 
-const Header = (props: ViewProps): React.ReactElement => (
-    <View {...props}>
-      <Text category='s2'>
-        Available Balance 
-      </Text>
-      <Text category='h5'>
-        PHP 5,000.00
-      </Text>
-    </View>
-);
+    const arrowIcon = () => <Icon name="chevron-right-outline" style={[styles.iconStyle]}/>
+    
+    const Header = (props: ViewProps): React.ReactElement => (
+        <View {...props}>
+          <Text category='s2'>
+            Available Balance 
+          </Text>
+          <Text category='h5'>
+            PHP 5,000.00
+          </Text>
+        </View>
+    );
+    
+    const Footer = (props: ViewProps): React.ReactElement => (
+        <View
+          {...props}
+          // eslint-disable-next-line react/prop-types
+          style={[props.style, styles.footerContainer]}
+        >
+          <Button
+            style={styles.footerControl}
+            size='small'
+            status='basic'
+          >
+            CANCEL
+          </Button>
+    
+          <Button
+            style={styles.footerControl}
+            size='small'
+          >
+            ACCEPT
+          </Button>
+        </View>
+    );
+    
+    const renderTransactionItemAccessory = (): React.ReactElement => (
+      <TouchableOpacity onPress={viewSelectedTransaction} style={styles.eyeButton}>
+        {arrowIcon()}
+      </TouchableOpacity>
+    );
+    
+    const handleProfile = () => {
+      console.warn('Go to Profile');  
+      navigation.navigate('Profile'); // Use 'Profile' instead of 'ProfileScreen'
+    };
+    
+    const handleViewAllTransactionHistory = () => {
+      console.warn('View All Transaction History');
+    };
+    
+    const handleViewRegisteredPrograms = () => {
+      console.warn('View Registered Programs');
+    };
+    
+    const renderTransactionItemIcon = (): IconElement => (
+      <Icon name='person' style={[styles.iconStyle]}/>
+    );
+    
+    const renderLatestTransactionItem = ({ item, index }: { item: IListItem; index: number }): React.ReactElement => (
+        <ListItem
+          title={`${item.refNo} ${index + 1}`}
+          description={`${item.transactDate} ${index + 1}`}
+          accessoryLeft={renderTransactionItemIcon}
+          accessoryRight={renderTransactionItemAccessory}
+        />
+    );  
+    
+    const viewSelectedTransaction = () => {
+        console.warn('View selected transaction');
+    }
 
-const Footer = (props: ViewProps): React.ReactElement => (
-    <View
-      {...props}
-      // eslint-disable-next-line react/prop-types
-      style={[props.style, styles.footerContainer]}
-    >
-      <Button
-        style={styles.footerControl}
-        size='small'
-        status='basic'
-      >
-        CANCEL
-      </Button>
-
-      <Button
-        style={styles.footerControl}
-        size='small'
-      >
-        ACCEPT
-      </Button>
-    </View>
-);
-
-const renderTransactionItemAccessory = (): React.ReactElement => (
-  <TouchableOpacity onPress={viewSelectedTransaction} style={styles.eyeButton}>
-    {arrowIcon()}
-  </TouchableOpacity>
-);
-
-const handleViewAllTransactionHistory = () => {
-  console.warn('View All Transaction History');
-};
-
-const handleViewRegisteredPrograms = () => {
-  console.warn('View Registered Programs');
-};
-const renderTransactionItemIcon = (): IconElement => (
-  <Icon name='person' style={[styles.iconStyle]}/>
-);
-
-const renderLatestTransactionItem = ({ item, index }: { item: IListItem; index: number }): React.ReactElement => (
-    <ListItem
-      title={`${item.refNo} ${index + 1}`}
-      description={`${item.transactDate} ${index + 1}`}
-      accessoryLeft={renderTransactionItemIcon}
-      accessoryRight={renderTransactionItemAccessory}
-    />
-);  
-
-const viewSelectedTransaction = () => {
-    console.warn('View selected transaction');
-}
-
-const HomeScreen = (props: HomeProps) => {
     const eyeIcon    = () => <Icon name="eye-outline" style={[styles.iconStyle]} />;
     const eyeOffIcon = () => <Icon name="eye-off-outline" style={[styles.iconStyle]} />;
     
@@ -137,21 +144,12 @@ const HomeScreen = (props: HomeProps) => {
 
     return(
         <Layout style={styles.container}>
-            <View style={styles.avatarContainer}>
-                <Avatar
-                    style={styles.avatar}
-                    size='small'
-                    source={icons.userIcon}
-                />
-                <View style={styles.textContainer}>
-                    <Text style={styles.fullNameText}>
-                        Jojo Miguel C. Bardon
-                    </Text>
-                    <Text category='c1' style={styles.rsbsaNumberText}>
-                        01-123-12-A12XH1
-                    </Text>
-                </View>
-            </View>
+            <TouchableOpacity onPress={handleProfile}>
+              <AvaterHeader 
+                fullname="Jojo Miguel C. Bardon" 
+                rsbsaNo="01-123-12-A12XH1"
+              />
+            </TouchableOpacity>
 
             {/* First Card */}
             <Card style={styles.card1}>

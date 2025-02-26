@@ -7,8 +7,6 @@
 
 import React, { useState, useEffect } from 'react';
 
-import type {PropsWithChildren} from 'react';
-
 import {
   SafeAreaView,
   ScrollView,
@@ -27,24 +25,14 @@ import {
   Text,
 } from '@ui-kitten/components';
 
+import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
-import * as eva from '@eva-design/eva';
+// NAVIGATION STACK
+import AppStack from './src/navigations/AppStackNavigations';
 
 // ASSETS
 import { ThemeContext } from './src/assets/theme';
-
-import LogIn from './src/screens/Login';
-import Otp from './src/screens/OTP';
-import HomeScreen from './src/screens/Home';
-
-// import {
-//   Colors,
-//   DebugInstructions,
-//   Header,
-//   LearnMoreLinks,
-//   ReloadInstructions,
-// } from 'react-native/Libraries/NewAppScreen';
 
 export default (): React.ReactElement => {
   const [theme, setTheme] = useState('light');
@@ -54,8 +42,8 @@ export default (): React.ReactElement => {
     setTheme(nextTheme);
   };
 
-  const sunIcon   = () => <Icon name="sun-outline" />;
-  const moonIcon  = () => <Icon name="moon-outline" />;
+  const sunIcon   = () => <Icon name="sun-outline" fill="#009246" style={[styles.iconStyle]} />;
+  const moonIcon  = () => <Icon name="moon-outline" fill="white" style={[styles.iconStyle]} />;
 
   return (
     <>
@@ -73,25 +61,10 @@ export default (): React.ReactElement => {
                 onPress={toggleTheme}
                 style={styles.themeToggleButton}
               >
-                {/* {theme === 'light' ? 'Dark Mode' : 'Light Mode'} */}
               </Button>
           </View>
 
-          {/* <LogIn 
-              email="kentley.ong@mail.da.gov.ph" 
-              id={2024} 
-              password="secret" 
-          /> */}
-
-          {/* <Otp 
-              otp={123456}
-           /> */}
-
-          <HomeScreen 
-            user_id="1234"
-            email="kentley.ong@mail.da.gov.ph" 
-            regCode="13" 
-          />
+          <AppStack />
 
           </ApplicationProvider>
         </ThemeContext.Provider>
@@ -117,8 +90,12 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: 'absolute',
-    top: 10, // Adjust if needed
-    right: 10, // Adjust if needed
+    top: 10, 
+    right: 10, 
     zIndex: 1,
+  },
+  iconStyle: {
+    width: 20,  // You can adjust the size of the icon as needed
+    height: 20,
   },
 });
