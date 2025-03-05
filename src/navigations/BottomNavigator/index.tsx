@@ -17,20 +17,44 @@ type Props = NativeStackScreenProps<RootStackParamList , "BottomTabs">
 
 const BottomTab = createBottomTabNavigator();
 
+// const HomeIcon = (props): IconElement => (
+//   <Icon
+//     {...props}
+//     name='home-outline'
+//   />
+// );
+
+// const QRIcon = (props): IconElement => (
+//   <Icon
+//     {...props}
+//     name='camera-outline'
+//   />
+// );
+
+// const PersonIcon = (props): IconElement => (
+//   <Icon
+//     {...props}
+//     name='person-outline'
+//   />
+// );
+
 // Explicitly type the props for BottomTabBar using BottomTabBarProps
 // Bottom Tab Bar Component
 const BottomTabBar: React.FC<BottomTabBarProps> = ({ navigation, state }) => (
     <BottomNavigation
+      style={styles.bottomNavigation}
       selectedIndex={state.index}
       onSelect={(index) => navigation.navigate(state.routeNames[index])}>
+
       {state.routes.map((route, idx) => {
         // Find the corresponding route config from BottomTabRoutesData
         const routeConfig = BottomTabRoutesData.find((r) => r.route === route.name);
+        
         return (
           <BottomNavigationTab
             key={idx}
             title={routeConfig?.label || route.name}
-            icon={routeConfig?.icon || undefined}
+            icon={(props) => routeConfig?.icon ? routeConfig.icon(props) : <View />}
           />
         );
       })}

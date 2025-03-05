@@ -26,6 +26,9 @@ import {
     Card,
     ListItem,
     List,
+    Menu, 
+    MenuItem, 
+    MenuProps
 } from '@ui-kitten/components';
 
 // COMPONENTS
@@ -42,15 +45,59 @@ type Props = NativeStackScreenProps<RootStackParamList, "Profile">
 
 // DATA DECLARATION
 
+const ForwardIcon = (props): IconElement => (
+    <Icon
+      {...props}
+      name='arrow-ios-forward'
+    />
+  );
+
+  const useMenuState = (initialState = null): MenuProps => {
+    const [selectedIndex, setSelectedIndex] = React.useState(initialState);
+    return { selectedIndex, onSelect: setSelectedIndex };
+  };
 
 // VIEW
 const ProfileScreen: React.FC<Props> = ({ route, navigation }) => {
+    const leftMenuState = useMenuState();
+    const rightMenuState = useMenuState();
+    
     return(
         <Layout style={styles.container}>
-            <AvaterHeader 
-                fullname="Jojo Miguel C. Bardon" 
-                rsbsaNo="01-123-12-A12XH1"
-            />
+            {/* <View style={{backgroundColor: '#ffffff'}}> */}
+                {/* <AvaterHeader 
+                    fullname="Jojo Miguel C. Bardon" 
+                    rsbsaNo="01-123-12-A12XH1"
+                /> */}
+            {/* </View> */}
+
+            <Layout style={styles.menuContainer}>
+                <Menu
+                    style={styles.menu}
+                    {...rightMenuState}
+                >
+                    <MenuItem
+                        style={{backgroundColor: '#ffffff'}}
+                        title='My Profile'
+                        accessoryRight={ForwardIcon}
+                    />
+                    <MenuItem
+                        style={{backgroundColor: '#ffffff'}}
+                        title='Account Security'
+                        accessoryRight={ForwardIcon}
+                    />
+                    <MenuItem
+                        style={{backgroundColor: '#ffffff'}}
+                        title='Data Privacy'
+                        accessoryRight={ForwardIcon}
+                    />
+                    <MenuItem
+                        style={{backgroundColor: '#ffffff'}}
+                        title='Documents'
+                        accessoryRight={ForwardIcon}
+                    />
+                </Menu>
+            </Layout>
         </Layout>
     );
 }

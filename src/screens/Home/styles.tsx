@@ -38,14 +38,14 @@ export const styles = StyleSheet.create({
       flex: 0.2,
       marginBottom: 20,
       borderRadius: 10,
-      // backgroundColor: '#ffffff',
+      backgroundColor: '#ffffff',
     },
 
     card3: {
       flex: 0.5,
       marginBottom: 20,
       borderRadius: 10,
-      // backgroundColor: '#ffffff',
+      backgroundColor: '#ffffff',
     },
 
     amountBalanceContent:{
@@ -92,7 +92,7 @@ export const styles = StyleSheet.create({
     },
 
     iconStyle: {
-      color: '#ffffff',  // Change this to any color you prefer,
+      color: '#009246',  // Change this to any color you prefer,
       width: 20,  // You can adjust the size of the icon as needed
       height: 20,
     },
@@ -161,5 +161,17 @@ export const styles = StyleSheet.create({
     backgroundImage: {
       width: '100%',
       height: '100%', // or whatever height you want
+    },
+
+    themeToggleButton: {
+      // marginBottom: 20,
+      alignSelf: 'flex-end',
+    },
+
+    transImg:{
+        width: 35,
+        height: 35,
+        resizeMode:'cover',
+        top: 2,
     },
 });

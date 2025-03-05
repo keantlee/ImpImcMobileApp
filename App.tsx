@@ -25,6 +25,8 @@ import {
   Text,
 } from '@ui-kitten/components';
 
+import { customTheme } from './src/assets/colors';
+
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
@@ -44,16 +46,17 @@ export default (): React.ReactElement => {
 
   const sunIcon   = () => <Icon name="sun-outline" fill="#009246" style={[styles.iconStyle]} />;
   const moonIcon  = () => <Icon name="moon-outline" fill="white" style={[styles.iconStyle]} />;
-
+  const combinedTheme = theme === 'light' ? { ...eva.light, ...customTheme } : eva.dark;
   return (
     <>
         {/* <User userId="UUID1234" email="kentley.ong@mail.da.gov.ph" password="secret" fullName={fullname} gender="MALE" contactNo={9169382460} location={location}/>  */}
 
         <IconRegistry icons={EvaIconsPack}/>
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
-          <ApplicationProvider {...eva} theme={eva[theme]}>
+          {/* <ApplicationProvider {...eva} theme={eva[theme]}> */}
+          <ApplicationProvider {...eva} theme={combinedTheme}>
 
-          <View style={styles.buttonContainer}>
+          {/* <View style={styles.buttonContainer}>
               <Button
                 appearance="ghost"
                 status="info"
@@ -62,7 +65,7 @@ export default (): React.ReactElement => {
                 style={styles.themeToggleButton}
               >
               </Button>
-          </View>
+          </View> */}
 
           <AppStack />
 

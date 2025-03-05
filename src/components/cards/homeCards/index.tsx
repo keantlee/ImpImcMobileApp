@@ -71,11 +71,15 @@ export const RenderBalanceCard: React.FC<RenderBalanceProps> = ({
 interface RenderModuleProps {
     handleViewAllTransactionHistory: () => void;
     handleViewRegisteredPrograms: () => void;
+    handleViewPayouts: () => void;
+    handleViewAccreditation: () => void;
 };
 
 export const RenderModules: React.FC<RenderModuleProps> = ({
     handleViewAllTransactionHistory, 
-    handleViewRegisteredPrograms
+    handleViewRegisteredPrograms,
+    handleViewPayouts,
+    handleViewAccreditation
 }) => {
     return(
         <View style={moduleCardsStyles.modulesContainerPerItemRow}>
@@ -95,25 +99,43 @@ export const RenderModules: React.FC<RenderModuleProps> = ({
 
             <Pressable style={moduleCardsStyles.moduleItem} onPress={ handleViewRegisteredPrograms }>
                 <View style={moduleCardsStyles.moduleCards}>
+                    <FastImage
+                        style={moduleCardsStyles.moduleImage}
+                        source = { images.interventionsImg } 
+                        resizeMode={FastImage.resizeMode.cover}
+                    >
                     <View style={moduleCardsStyles.moduleCardOverlay}>
-                        <Text style={moduleCardsStyles.moduleTitle}>Programs</Text>
+                        <Text style={moduleCardsStyles.moduleTitle}>Interventions</Text>
                     </View>
+                    </FastImage>
                 </View>
             </Pressable>
 
-            <Pressable style={moduleCardsStyles.moduleItem}>
+            <Pressable style={moduleCardsStyles.moduleItem} onPress={ handleViewPayouts }>
                 <View style={moduleCardsStyles.moduleCards}>
+                    <FastImage
+                        style={moduleCardsStyles.moduleImage}
+                        source = { images.payoutsImg } 
+                        resizeMode={FastImage.resizeMode.cover}
+                    >
                     <View style={moduleCardsStyles.moduleCardOverlay}>
-                        <Text style={moduleCardsStyles.moduleTitle}>Module Box</Text>
+                        <Text style={moduleCardsStyles.moduleTitle}>Payouts</Text>
                     </View>
+                    </FastImage>
                 </View>
             </Pressable>
 
-            <Pressable style={moduleCardsStyles.moduleItem}>
+            <Pressable style={moduleCardsStyles.moduleItem} onPress={ handleViewAccreditation }>
                 <View style={moduleCardsStyles.moduleCards}>
+                    <FastImage
+                        style={moduleCardsStyles.moduleImage}
+                        source = { images.accreditationImg } 
+                        resizeMode={FastImage.resizeMode.cover}
+                    >
                     <View style={moduleCardsStyles.moduleCardOverlay}>
-                        <Text style={moduleCardsStyles.moduleTitle}>Module Box</Text>
+                        <Text style={moduleCardsStyles.moduleTitle}>Accreditation</Text>
                     </View>
+                    </FastImage>
                 </View>
             </Pressable>
         </View>
@@ -140,7 +162,7 @@ export const RenderLatestTransaction: React.FC<RenderLatestTransactionProps> = (
             <Pressable onPress={ onViewTransaction }>
                 <View style={{ flexDirection:'column', top: 2, marginBottom:30}}>
                     <View style={{ flexDirection:'row',  }}>
-                        <FastImage style = { [transactionStyles.transImg] } source = { images.transactionImg } resizeMode = { FastImage.resizeMode.cover } />
+                        <FastImage style = { [transactionStyles.transImg] } source = { images.receiptImg } resizeMode = { FastImage.resizeMode.cover } />
 
                         <View style={[]}>
                             <View style={[]}>

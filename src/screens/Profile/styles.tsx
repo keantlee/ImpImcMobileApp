@@ -13,4 +13,25 @@ export const styles = StyleSheet.create({
         justifyContent: 'flex-start', 
         alignItems: 'center'
     },
+
+    card: {
+        flex: 0.8,
+        marginBottom: 20,
+        borderRadius: 10,
+        backgroundColor: '#ffffff',
+    },
+
+    menuContainer:{
+        flex: 0.2,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+
+    menu: {
+        flex: 1,
+        // margin: 10,
+        borderRadius: 5,
+        backgroundColor: '#ffffff',
+    },
 });

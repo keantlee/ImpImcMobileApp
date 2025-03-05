@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
     avatarContainer: {
         flexDirection: 'row',  // Align Avatar and Text horizontally
         alignItems: 'center',  // Vertically center the Avatar and Text
-        // marginBottom: 20,
+        marginBottom: 20,
     },
   
     avatar: {

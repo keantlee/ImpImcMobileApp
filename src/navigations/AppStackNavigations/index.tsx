@@ -9,6 +9,7 @@ import { LogIn, Otp, HomeScreen, ProfileScreen } from "../../screens";
 
 import BottomTabNavigator from "../BottomNavigator";
 import { customBottomScreenOptions } from "../BottomNavigator/customBottomScreenOptions";
+import { AvaterHeader } from "../../components/header/avatar";
 
 // Define type for navigation parameters
 export type RootStackParamList  = {
@@ -19,7 +20,7 @@ export type RootStackParamList  = {
     Otp: {
         email: string,
         userID: string
-    },
+    };
     Profile: undefined;
     BottomTabs: undefined;
 };
@@ -45,7 +46,15 @@ export default function AppStack(): React.ReactElement {
 
                 <Stack.Screen name="Profile" 
                               component={ProfileScreen} 
-                              options={{ headerShown: true }} />
+                              options={{             
+                                header: () => (
+                                    <AvaterHeader
+                                    fullname="Jojo Miguel C. Bardon"
+                                    rsbsaNo="01-123-12-A12XH1"
+                                    />
+                                ), 
+                                headerShown: true
+                                }} />
 
                 <Stack.Screen name="BottomTabs" 
                               component={BottomTabNavigator} 
