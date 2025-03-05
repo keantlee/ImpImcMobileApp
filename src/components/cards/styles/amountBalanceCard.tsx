@@ -16,7 +16,9 @@ export const amountBalanceCardStyles = StyleSheet.create({
     },
 
     eyeButton: {
-        padding: 5,
+        color: '#ffffff',
+        // padding: 10,
+        paddingLeft: 10,
     },
 
     amountContainer: {

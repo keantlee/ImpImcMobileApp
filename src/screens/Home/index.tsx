@@ -42,9 +42,13 @@ import images from '../../assets/images';
 // STYLES
 import { styles } from './styles';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParams } from '../../navigations/AppStackNavigations';
+import { RootStackParamList } from '../../navigations/AppStackNavigations';
 
-type HomeProps = NativeStackScreenProps<RootStackParams, "HomeScreen">
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import FastImage  from 'react-native-fast-image';
+
+type HomeProps = NativeStackScreenProps<RootStackParamList, "HomeScreen">
 
 interface IListItem {
     refNo: string;
@@ -56,12 +60,14 @@ const data = new Array(8).fill({
     transactDate: 'Transaction Date',
 });
 
-const HomeScreen: React.FC<HomeProps> = ({ route })  => {
+const HomeScreen: React.FC<HomeProps> = ()  => {
     const { RenderBalanceCard, RenderModules, RenderLatestTransaction } = homeCards;
 
     const navigation = useNavigation();
 
     const arrowIcon = () => <Icon name="chevron-right-outline" style={[styles.iconStyle]}/>
+
+    const QRIcon = () => <MaterialCommunityIcons name='qrcode-scan' size={25} style={{color:"#009246"}} />;
     
     const Header = (props: ViewProps): React.ReactElement => (
         <View {...props}>
@@ -116,12 +122,21 @@ const HomeScreen: React.FC<HomeProps> = ({ route })  => {
       console.warn('View Registered Programs');
     };
     
+    const handleViewPayouts = () => {
+      console.warn('View Payouts');
+    };
+
+    const handleViewAccreditation = () => {
+      console.warn('View Accreditation');
+    };
+
     const renderTransactionItemIcon = (): IconElement => (
-      <Icon name='person' style={[styles.iconStyle]}/>
+      <FastImage style = { [styles.transImg] } source = { images.receiptImg } resizeMode = { FastImage.resizeMode.cover } />
     );
     
     const renderLatestTransactionItem = ({ item, index }: { item: IListItem; index: number }): React.ReactElement => (
         <ListItem
+          style={{backgroundColor: '#ffffff'}}
           title={`${item.refNo} ${index + 1}`}
           description={`${item.transactDate} ${index + 1}`}
           accessoryLeft={renderTransactionItemIcon}
@@ -133,8 +148,8 @@ const HomeScreen: React.FC<HomeProps> = ({ route })  => {
         console.warn('View selected transaction');
     }
 
-    const eyeIcon    = () => <Icon name="eye-outline" style={[styles.iconStyle]} />;
-    const eyeOffIcon = () => <Icon name="eye-off-outline" style={[styles.iconStyle]} />;
+    const eyeIcon    = () => <Icon name="eye-outline" fill="white" style={[styles.iconStyle]} />;
+    const eyeOffIcon = () => <Icon name="eye-off-outline" fill="white" style={[styles.iconStyle]} />;
     
     const [balanceVisible, setBalanceVisible] = useState(false);
 
@@ -142,14 +157,36 @@ const HomeScreen: React.FC<HomeProps> = ({ route })  => {
         setBalanceVisible(!balanceVisible);
     };
 
+    const handleScanQR = () => {
+      console.log('Scanning QR Code');
+      navigation.navigate('QRScreen');
+    }
+
     return(
         <Layout style={styles.container}>
-            <TouchableOpacity onPress={handleProfile}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <TouchableOpacity onPress={handleProfile}>
+                <AvaterHeader 
+                  fullname="Jojo Miguel C. Bardon" 
+                  rsbsaNo="01-123-12-A12XH1"
+                />
+              </TouchableOpacity>
+
+              <Button
+                  appearance="ghost"
+                  status="info"
+                  accessoryLeft={QRIcon}
+                  onPress={handleScanQR}
+                  style={styles.themeToggleButton}
+                >
+              </Button>
+            </View> 
+            {/* <TouchableOpacity onPress={handleProfile}>
               <AvaterHeader 
                 fullname="Jojo Miguel C. Bardon" 
                 rsbsaNo="01-123-12-A12XH1"
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             {/* First Card */}
             <Card style={styles.card1}>
@@ -167,12 +204,14 @@ const HomeScreen: React.FC<HomeProps> = ({ route })  => {
               <RenderModules 
                 handleViewAllTransactionHistory = {handleViewAllTransactionHistory}
                 handleViewRegisteredPrograms = {handleViewRegisteredPrograms}
+                handleViewPayouts = {handleViewPayouts}
+                handleViewAccreditation = {handleViewAccreditation}
               />
             </Card>
 
             {/* Third Card */}
             <Card style={styles.card3}>
-              <Text>
+              <Text style={{color: '#000000'}}>
                   Transaction History
               </Text>
               <List

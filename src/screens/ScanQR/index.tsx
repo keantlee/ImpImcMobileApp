@@ -70,6 +70,7 @@ const QRScreen = () => {
             </View>
         )
     }
+
     if (device == null){
         return(
             <View>
@@ -77,6 +78,7 @@ const QRScreen = () => {
             </View>
         )
     }
+    
     return (
       <Camera
         style={StyleSheet.absoluteFill}
